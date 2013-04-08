@@ -52,17 +52,7 @@ helpContents = (name, commands) ->
 
 module.exports = (robot) ->
   robot.respond /help\s*(.*)?$/i, (msg) ->
-    cmds = robot.helpCommands()
-
-    if msg.match[1]
-      cmds = cmds.filter (cmd) ->
-        cmd.match new RegExp(msg.match[1], 'i')
-
-    emit = cmds.join "\n"
-
-    unless robot.name.toLowerCase() is 'hubot'
-      emit = emit.replace /hubot/ig, robot.name
-
+    emit = "Help is at http://dr-sesh.herokuapp.com/hubot/help"
     msg.send emit
 
   robot.router.get '/hubot/help', (req, res) ->
