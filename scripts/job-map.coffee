@@ -69,7 +69,7 @@ module.exports = (robot)->
     job_map.setLocation(location)
     msg.send("Okay, #{user} works in #{location}")
 
-  robot.respond /(.+) job$/i, (msg)->
+  robot.respond /(.+) job/i, (msg)->
     user = msg.match[1].trim()
     cache = job_map.cache
 
