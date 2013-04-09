@@ -54,14 +54,14 @@ module.exports = (robot)->
     job_map.setLocation(location)
     
     msg.send("Okay, #{user} works at #{company} in #{location}")
-###
-  robot.respond /i work at (.+)$/i, (msg)->
+
+  robot.respond /i work for (.+)$/i, (msg)->
     company  = msg.match[1].trim()
     user     = msg.message.user.name.toLowerCase()
 
     job_map.setCompany(company)
     msg.send("Okay, #{user} works at #{company}")
-
+###
   robot.respond /i work in (.+)$/i, (msg)->
     location = msg.match[2].trim()
     user     = msg.message.user.name.toLowerCase()
