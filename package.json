@@ -18,7 +18,8 @@
     "hubot": ">=2.4.8",
     "hubot-scripts": ">= 2.4.1",
     "optparse": "1.0.3",
-    "hubot-irc": ">= 0.0.1"
+    "hubot-irc": ">= 0.0.1",
+    "nodepie": ">= 0.5.1"
   },
 
   "engines": {
