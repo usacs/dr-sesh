@@ -15,25 +15,33 @@
 #
 # Author:
 #   GRardB
+#   JetFault
 
 class JobMap
   constructor: (@robot)->
     @cache = {}
+    
+    @robot.brain.on 'loaded', =>
+      if @robot.brain.data.job_map
+        @cache = @robot.brain.data.job_map
 
-  createUserIfNew:(user)->
+  createUserIfNew: (user)->
     if not cache.hasOwnProperty(user)
       @cache[user] = {
         company: ''
         location: ''
       }
+      @robot.brain.data.job_map = @cache
 
   setLocation: (user, location)->
     @createUserIfNew(user)
     @cache[user]['location'] = location
+    @robot.brain.data.job_map = @cache
 
   setCompany: (user, company)->
     @createUserIfNew(user)
     @cache[user]['company'] = company
+    @robot.brain.data.job_map = @cache
 
 module.exports = (robot)->
   job_map = new JobMap(robot)
