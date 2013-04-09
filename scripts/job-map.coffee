@@ -37,7 +37,7 @@ class JobMap
 
 module.exports = (robot)->
   job_map = new JobMap(robot)
-  job_map.respond /i work at (.+) in (.+)/, (msg)->
+  robot.respond /i work at (.+) in (.+)/, (msg)->
     company  = msg.match[1].trim()
     location = msg.match[2].trim()
     user     = msg.message.user.name.toLowerCase()
@@ -47,21 +47,21 @@ module.exports = (robot)->
     
     msg.send("Okay, #{user} works at #{company} in #{location}")
 
-  job_map.respond /i work at (.+)/, (msg)->
+  robot.respond /i work at (.+)/, (msg)->
     company  = msg.match[1].trim()
     user     = msg.message.user.name.toLowerCase()
 
     job_map.setCompany(company)
     msg.send("Okay, #{user} works at #{company}")
 
-  job_map.respond /i work in (.+)/, (msg)->
+  robot.respond /i work in (.+)/, (msg)->
     location = msg.match[2].trim()
     user     = msg.message.user.name.toLowerCase()
 
     job_map.setLocation(location)
     msg.send("Okay, #{user} works in #{location}")
 
-  job_map.respond /(.+) job/, (msg)->
+  robot.respond /(.+) job/, (msg)->
     user = msg.match[1].trim()
     cache = job_map.cache
 
