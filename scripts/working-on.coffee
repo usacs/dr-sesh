@@ -24,7 +24,7 @@ module.exports = (robot) ->
     else if name.toLowerCase() is robot.name.toLowerCase()
       msg.send "World domination!"
     else if name.match(/(everybody|everyone)/i)
-      messageText = '';
+      messageText = ''
       users = robot.brain.users()
       for k, u of users
           if u.workingon
