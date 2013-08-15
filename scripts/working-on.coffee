@@ -9,14 +9,14 @@
 #
 # Commands:
 #   hubot i am working on <anything> - Set what you're working on
-#   hubot what is everyone working on? - Find out what everyone is working on
+#   hubot (what is|what's) everyone working on? - Find out what everyone is working on
 #
 # Author:
 #   beezee
 
 module.exports = (robot) ->
 
-  robot.respond /what is @?([\w .\-]+) working on(\?)?$/i, (msg) ->
+  robot.respond /(what is|what's) @?([\w .\-]+) working on(\?)?$/i, (msg) ->
     name = msg.match[1].trim()
 
     if name is "you"
