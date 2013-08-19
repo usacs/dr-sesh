@@ -1,7 +1,5 @@
 ["availability.coffee",
 "redis-brain.coffee",
-"tweet.coffee",
-"twitter.coffee",
 "shipit.coffee",
 "karma.coffee",
 "aww.coffee",
