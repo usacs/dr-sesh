@@ -47,6 +47,13 @@ module.exports = (robot) ->
           return true if role in user.roles
       return false
 
+    usersWithRole: (role) ->
+      users = []
+      for own key, user of robot.brain.data.users
+        if robot.auth.hasRole(msg.envelope.user, role)
+          users.push(user)
+      users
+
   robot.auth = new Auth
 
   robot.respond /@?(.+) (has) (["'\w: -_]+) (role)/i, (msg) ->
@@ -91,17 +98,24 @@ module.exports = (robot) ->
     user = robot.brain.userForName(name)
     return msg.reply "#{name} does not exist" unless user?
     user.roles or= []
+    displayRoles = user.roles
 
     if user.id.toString() in admins
-      isAdmin = ' and is also an admin'
+      displayRoles.push('admin') unless 'admin' in user.roles
+
+    if displayRoles.length == 0
+      msg.reply "#{name} has no roles."
     else
-      isAdmin = ''
-    msg.reply "#{name} has the following roles: #{user.roles.join(', ')}#{isAdmin}."
+      msg.reply "#{name} has the following roles: #{displayRoles.join(', ')}."
 
   robot.respond /who has admin role\?*$/i, (msg) ->
     adminNames = []
     for admin in admins
       user = robot.brain.userForId(admin)
-      adminNames.push user.name if user?
+      unless robot.auth.hasRole(msg.envelope.user,'admin')
+        adminNames.push user.name if user?
 
-    msg.reply "The following people have the 'admin' role: #{adminNames.join(', ')}"
+    if adminNames.length > 0
+      msg.reply "The following people have the 'admin' role: #{adminNames.join(', ')}"
+    else
+      msg.reply "There are no people that have the 'admin' role."
